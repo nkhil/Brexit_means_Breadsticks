@@ -1,40 +1,20 @@
-//credit goes to Steven Frank of Cloud to Butt (https://github.com/panicsteve/cloud-to-butt/)
+/*jshint esversion: 6 */
 
-walk(document.body);
 
-function walk(node)
-{
-	// I stole this function from here:
-	// http://is.gd/mwZp7E
+var elementsInsideBody = [...document.body.getElementsByTagName('*')];
+// This makes an array of everything inside the body tag
+//console.log(elementsInsideBody);
 
-	var child, next;
+//a function that loops through every single item
+function findAndReplace(){
+  elementsInsideBody.forEach(element =>{
+    element.childNodes.forEach(child =>{
+      if(child.nodeType === 3){
+        child.nodeValue = child.nodeValue.replace(/brexit/gi, 'breadsticks');
+      }
+    });
 
-	switch ( node.nodeType )
-	{
-		case 1:
-		case 9:
-		case 11:
-			child = node.firstChild;
-			while ( child )
-			{
-				next = child.nextSibling;
-				walk(child);
-				child = next;
-			}
-			break;
-
-		case 3:
-			handleText(node);
-			break;
-	}
+  });
 }
 
-function handleText(textNode)
-{
-	var v = textNode.nodeValue;
-
-	v = v.replace(/\bbrexit\b/g, "breadsticks");
-	v = v.replace(/\bBrexit\b/g, "Breadsticks");
-		
-	textNode.nodeValue = v;
-}
+window.onload = findAndReplace();

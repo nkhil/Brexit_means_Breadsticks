@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Brexit means Breadsticks",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Turns every mention of Brexit on any website into 'breadsticks'",
   "icons": { "16": "images/breadsticks16.png",
            "48": "images/breadsticks48.png",
