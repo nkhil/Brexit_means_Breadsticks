@@ -1,9 +1,34 @@
 # Brexit Means Breadsticks (Chrome Extension)
 ### A chrome extension that turns the word brexit into breadsticks on all pages.
-#### Credit goes to Steven Frank of Cloud to Butt (https://github.com/panicsteve/cloud-to-butt/)
 #### You can install the Chrome Extension [here](https://chrome.google.com/webstore/detail/brexit-means-breadsticks/okbmmlhhebmgpjgjhffamejlcgclpkkh)
 
 ![Brexit means Breadsticks](https://github.com/nkhil/Brexit_means_Breadsticks/blob/master/showcase.png "Brexit Means Breadsticks")
+
+The code I ended up writing for this was:
+
+```
+var elementsInsideBody = [...document.body.getElementsByTagName('*')];
+// This makes an array of everything inside the body tag
+//console.log(elementsInsideBody);
+
+//a function that loops through every single item
+function findAndReplace(){
+  elementsInsideBody.forEach(element =>{
+    element.childNodes.forEach(child =>{
+      if(child.nodeType === 3){
+        child.nodeValue = child.nodeValue.replace(/brexit/gi, 'breadsticks');
+      }
+    });
+
+  });
+}
+
+window.onload = findAndReplace();
+```
+
+The puzzling thing about this was that `.getElementsByTagName('*');` gets me parent nodes, but I need to look inside them for the text nodes, because that's what I'm trying to change. Adding another `.forEach()` and passing in the `childNodes` in there before using the `.replace()` method on it is what makes it work. 
+
+**The following are the methods I tried prior to the code solution above.**
 
 I did try to write this from scratch using something like 
 
@@ -40,7 +65,8 @@ I also found alternative solutons from a stranger on the internet:
 ```
 Which was great, because I've not come across `replaceInDom` before. 
 
-Also, there is another working solution listed on [9to5google](https://9to5google.com/2015/06/14/how-to-make-a-chrome-extensions/) which uses `for loops`, which I was trying to avoid. 
+There is another working solution listed on [9to5google](https://9to5google.com/2015/06/14/how-to-make-a-chrome-extensions/) which uses `for loops`, which I was trying to avoid. 
 
-I ended up using Steven Frank's solution, but I might still iterate and find my own solution to this, since I know I'm on the right track. 
+I used Steven Frank's solution for a previous version, which you can find [on his cloud to butt code](https://github.com/panicsteve/cloud-to-butt/)
+
 
